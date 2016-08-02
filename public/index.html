@@ -2,46 +2,7 @@
 <html>
   <head></head>
   <body>
-    Source:<br>
-    <pre></pre>
-    
-    
-    Open your console. It should read:
-    <pre>
-Sending GET request ...
-done (first callback)
-Sending second GET (304) ...
-done (second callback)
-done (inner .then()
-done (outer .then)
-    </pre>
-    
-    ... however, the last three lines never appear:
-    <pre></pre>
-    
-    In the network panel, you should see two request for "/test" - the first will have<br>
-    a 200 response, and the second will have 304 Not Modified.
-    
-	  <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-    <script>
-      function log(message) {
-        let $el = $('pre:last');
-        let prev = $el.text();
-        $el.text(prev + '\n' + message);
-      }
-      
-      $.ajax({
-        url: '/client.js',
-        dataType: 'text'
-      }).then(function (source) {
-        $('pre:first').text(source);
-      });
-    </script>
     <script src="/client.js"></script>
-
-    <style>
-      pre { margin-left: 1em };
-    </style>
   </body>
 </html>
 
