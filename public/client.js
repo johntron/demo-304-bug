@@ -1,19 +1,22 @@
-$(function() {
-  log('Sending GET request ...');
-  $.get('/test', function () {
-    log('done (first callback)');
-    log('Sending second GET (304) ...');
-    
-    $.when(
-      // Inner .then()
-      $.get('/test', function () {
-        log('done (second callback)');
-      }).then(function () {
-        log('done (inner .then()')
-      })
-    // Outer .then()
-    ).then(function () {
-      log('done (outer .then)');
-    });
-  });
-});
+function get(callback) {
+  callback = callback || function () {}
+  
+  var r = new XMLHttpRequest();
+
+  r.open("GET", "/test", true);
+  r.onreadystatechange = function () {
+  	if (r.readyState != 4) {
+  	  return;
+  	}
+  	
+  	if (["200", "304"].indexOf(r.status) >= 0) {
+  	  return console.error(r); 
+  	}
+  	
+  	console.log(r.responseText);
+  	callback();
+  };
+  r.send();
+}
+
+get(get);
